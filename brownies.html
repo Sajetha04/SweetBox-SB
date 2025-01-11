@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brownies Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fff3f0;
+        }
+
+        header {
+            background-color: #008080; /* Teal */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .menu-item {
+            background-color: #ffe0cc;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            margin: 15px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.2em;
+            color: #008080; /* Teal */
+            margin: 10px 0;
+        }
+
+        .menu-item p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .quantity-control button {
+            background-color: #008080; /* Teal */
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-control button:hover {
+            background-color: #005959; /* Darker teal */
+        }
+
+        .quantity-control span {
+            margin: 0 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            margin-top: 10px;
+            background-color: #008080; /* Teal */
+            color: white;
+            padding: 10px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #005959; /* Darker teal */
+        }
+    </style>
+    <script>
+    // Function to update the quantity of a specific item
+    function updateQuantity(id, increment) {
+        const quantityElement = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantityElement.textContent);
+        quantity = Math.max(1, quantity + increment); // Minimum quantity is 1
+        quantityElement.textContent = quantity;
+    }
+
+    // Function to add an item to the cart
+    function addToCart(name, price, id) {
+        const quantity = parseInt(document.getElementById(`quantity-${id}`).textContent);
+        const item = { name, price, quantity };
+
+        // Retrieve the cart from sessionStorage
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+        // Check if the item is already in the cart
+        const existingItem = cart.find(i => i.name === name);
+        if (existingItem) {
+            existingItem.quantity += quantity; // Update quantity if item exists
+        } else {
+            cart.push(item); // Add new item if it doesn't exist
+        }
+
+        // Save the updated cart to sessionStorage
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+
+        // Redirect to the cart page
+        window.location.href = 'cart.html';
+    }
+</script>
+
+</head>
+<body>
+
+<header>Brownies Menu</header>
+
+<div class="menu-container">
+    <!-- Example Item -->
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\classicfudge2.jpeg" alt="Classic Fudge">
+        <h3>Classic Fudge Brownie</h3>
+        <p>Price: ₹449 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(1, -1)">-</button>
+            <span id="quantity-1">1</span>
+            <button onclick="updateQuantity(1, 1)">+</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart('Classic Fudge Brownie', 449, 1)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\kitkat1.jpeg" alt="Kitkat">
+        <h3>Kitkat Brownie</h3>
+        <p>Price: ₹499 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(2, -1)">-</button>
+            <span id="quantity-2">1</span>
+            <button onclick="updateQuantity(2, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('KitKat Brownie', 499, 2)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\munch1.jpeg" alt="Munch">
+        <h3>Munch Brownie</h3>
+        <p>Price: ₹499 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(3, -1)">-</button>
+            <span id="quantity-3">1</span>
+            <button onclick="updateQuantity(3, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Munch Brownie', 499, 3)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdxS7BvsugGSl7WSx-hjRjJ2HL3e1Qz1hX_w&s" alt="Oreo">
+        <h3>Oreo Brownie</h3>
+        <p>Price: ₹529 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(4, -1)">-</button>
+            <span id="quantity-4">1</span>
+            <button onclick="updateQuantity(4, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Oreo Brownie', 529, 4)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\cadbury1.jpeg" alt="cadbury">
+        <h3>Cadbury Brownie</h3>
+        <p>Price: ₹549 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(5, -1)">-</button>
+            <span id="quantity-5">1</span>
+            <button onclick="updateQuantity(5, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Cadbury Brownie', 549, 5)">Add to Cart</button>
+    </div>
+   <div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyAZHI9wuVcDVFTdzDjYHQPv3lS0cPSxZCuw&s" alt="milk ganache">
+        <h3>Milk Ganache Brownie</h3>
+        <p>Price: ₹549 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(6, -1)">-</button>
+            <span id="quantity-6">1</span>
+            <button onclick="updateQuantity(6, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Milk Ganache Brownie', 549, 6)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\lava3.webp" alt="Lava">
+        <h3>Lava</h3>
+        <p>Price: ₹549 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(7, -1)">-</button>
+            <span id="quantity-7">1</span>
+            <button onclick="updateQuantity(7, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Lava Brownie', 549, 7)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\doublechocy.jpg" alt="double chocolate loaded">
+        <h3>Double Chocolate Loaded Brownie</h3>
+        <p>Price: ₹579 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(8, -1)">-</button>
+            <span id="quantity-8">1</span>
+            <button onclick="updateQuantity(8, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Double Chocolate Loaded Brownie', 579, 8)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\nuts.jpg" alt="nuts loaded">
+        <h3>Nuts Loaded Brownie</h3>
+        <p>Price: ₹579 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(9, -1)">-</button>
+            <span id="quantity-9">1</span>
+            <button onclick="updateQuantity(9, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Nuts Loaded Brownie', 579, 9)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\chocochips.jpg" alt="chocochips loaded">
+        <h3>Chocochips Loaded Brownie</h3>
+        <p>Price: ₹579 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(10, -1)">-</button>
+            <span id="quantity-10">1</span>
+            <button onclick="updateQuantity(10, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Chocochips Loaded Brownie', 579, 10)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThH-OCQG06tid0ZSsYwUaDT2Y59ubmDZPdsQ&s" alt="Triple chocolate loaded">
+        <h3>Triple Chocolate Loaded Brownie</h3>
+        <p>Price: ₹599 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(11, -1)">-</button>
+            <span id="quantity-11">1</span>
+            <button onclick="updateQuantity(11, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Triple Chocolate Loaded Brownie', 599, 11)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\nutella.jpg" alt="nutella">
+        <h3>Nutella Brownie</h3>
+        <p>Price: ₹599 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(12, -1)">-</button>
+            <span id="quantity-12">1</span>
+            <button onclick="updateQuantity(12, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Nutella Brownie', 599, 12)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\roasted alomd.jpeg" alt="roast almond">
+        <h3>Roasted Almond Brownie</h3>
+        <p>Price: ₹579 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(13, -1)">-</button>
+            <span id="quantity-13">1</span>
+            <button onclick="updateQuantity(13, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Roasted Almond Brownie',579, 13)">Add to Cart</button>
+    </div>
+
+<div class="menu-item">
+        <img src="https://richanddelish.com/wp-content/uploads/2022/07/biscoff-brownies-2.jpg" alt="lotus biscoff">
+        <h3>Lotus Biscoff Brownie</h3>
+        <p>Price: ₹649 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(14, -1)">-</button>
+            <span id="quantity-14">1</span>
+            <button onclick="updateQuantity(14, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Lotus Biscoff Brownie', 649, 14)">Add to Cart</button>
+    </div>
+
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\caramel.jpeg" alt="caramel ">
+        <h3>Caramel Brownie</h3>
+        <p>Price: ₹549 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(15, -1)">-</button>
+            <span id="quantity-15">1</span>
+            <button onclick="updateQuantity(15, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Caramel Brownie', 549, 15)">Add to Cart</button>
+    </div>
+
+
+</div>
+
+</body>
+</html>

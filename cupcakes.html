@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupcakes Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fff3f0;
+        }
+
+        header {
+            background-color: #008080; /* Teal */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .menu-item {
+            background-color: #ffe0cc;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            margin: 15px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.2em;
+            color: #008080; /* Teal */
+            margin: 10px 0;
+        }
+
+        .menu-item p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .quantity-control button {
+            background-color: #008080; /* Teal */
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-control button:hover {
+            background-color: #005959; /* Darker teal */
+        }
+
+        .quantity-control span {
+            margin: 0 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            margin-top: 10px;
+            background-color: #008080; /* Teal */
+            color: white;
+            padding: 10px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #005959; /* Darker teal */
+        }
+    </style>
+    <script>
+    // Function to update the quantity of a specific item
+    function updateQuantity(id, increment) {
+        const quantityElement = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantityElement.textContent);
+        quantity = Math.max(1, quantity + increment); // Minimum quantity is 1
+        quantityElement.textContent = quantity;
+    }
+
+    // Function to add an item to the cart
+    function addToCart(name, price, id) {
+        const quantity = parseInt(document.getElementById(`quantity-${id}`).textContent);
+        const item = { name, price, quantity };
+
+        // Retrieve the cart from sessionStorage
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+        // Check if the item is already in the cart
+        const existingItem = cart.find(i => i.name === name);
+        if (existingItem) {
+            existingItem.quantity += quantity; // Update quantity if item exists
+        } else {
+            cart.push(item); // Add new item if it doesn't exist
+        }
+
+        // Save the updated cart to sessionStorage
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+
+        // Redirect to the cart page
+        window.location.href = 'cart.html';
+    }
+</script>
+
+</head>
+<body>
+
+<header>Cupcakes Menu</header>
+
+<div class="menu-container">
+    <!-- Example Item -->
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\BUTTERSCOTCH.jpg" alt="butterscotch">
+        <h3>Butterscotch Cupcake</h3>
+        <p>Price: ₹30 (1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(1, -1)">-</button>
+            <span id="quantity-1">1</span>
+            <button onclick="updateQuantity(1, 1)">+</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart('Butterscotch Cupcake', 30, 1)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\blueberry-cupcakes-26-scaled.jpg" alt="blueberry">
+        <h3>Blueberry Cupcake</h3>
+        <p>Price:₹30 (1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(2, -1)">-</button>
+            <span id="quantity-2">1</span>
+            <button onclick="updateQuantity(2, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Blueberry Cupcake', 30, 2)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\Salted-Caramel-Cupcakes-763d523.jpg" alt="caramel">
+        <h3>Salted Caramel Cupcake</h3>
+        <p>Price: ₹30 (1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(3, -1)">-</button>
+            <span id="quantity-3">1</span>
+            <button onclick="updateQuantity(3, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Salted Caramel Cupcake', 30, 3)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\RED VELLVET.jpg" alt="red velvet">
+        <h3>Red Velvet Cupcake</h3>
+        <p>Price: ₹30(1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(4, -1)">-</button>
+            <span id="quantity-4">1</span>
+            <button onclick="updateQuantity(4, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Red Velvet Cupcake', 30, 4)">Add to Cart</button>
+    </div>
+ <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\chocolate-chip-cheesecake-frosting-recipe.jpg" alt="chocolate cheese cupcake">
+        <h3>Chocolate Chip Cheese Cupcake</h3>
+        <p>Price: ₹30(1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(5, -1)">-</button>
+            <span id="quantity-5">1</span>
+            <button onclick="updateQuantity(5, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Chocolate Chip Cheese Cupcake', 30, 5)">Add to Cart</button>
+</div>
+ <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\Vanilla-Cupcakes-3.jpg" alt="vanilla cupcake">
+        <h3> Vanilla Cupcake</h3>
+        <p>Price: ₹30(1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(6, -1)">-</button>
+            <span id="quantity-6">1</span>
+            <button onclick="updateQuantity(6, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Vanilla Cupcake', 30, 6)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\Chocolate-Cupcakes-Recipe3.jpg" alt="chocolate cupcake">
+        <h3> Chocolate Cupcake</h3>
+        <p>Price: ₹30(1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(7, -1)">-</button>
+            <span id="quantity-7">1</span>
+            <button onclick="updateQuantity(7, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Chocolate Cupcake', 30, 7)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\OREO CUPCAKE.jpg" alt="oreo cupcake">
+        <h3> Oreo Cupcake</h3>
+        <p>Price: ₹30(1 pc)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(8, -1)">-</button>
+            <span id="quantity-8">1</span>
+            <button onclick="updateQuantity(8, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Oreo Cupcake', 30, 8)">Add to Cart</button>
+
+</div>
+</div>
+
+
+
+</body>
+</html>

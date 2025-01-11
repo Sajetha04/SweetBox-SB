@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cakes Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fff3f0;
+        }
+
+        header {
+            background-color: #008080; /* Teal */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .menu-item {
+            background-color: #ffe0cc;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            margin: 15px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .menu-item h3 {
+            font-size: 1.2em;
+            color: #008080; /* Teal */
+            margin: 10px 0;
+        }
+
+        .menu-item p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .quantity-control button {
+            background-color: #008080; /* Teal */
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .quantity-control button:hover {
+            background-color: #005959; /* Darker teal */
+        }
+
+        .quantity-control span {
+            margin: 0 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            margin-top: 10px;
+            background-color: #008080; /* Teal */
+            color: white;
+            padding: 10px 15px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #005959; /* Darker teal */
+        }
+    </style>
+    <script>
+    // Function to update the quantity of a specific item
+    function updateQuantity(id, increment) {
+        const quantityElement = document.getElementById(`quantity-${id}`);
+        let quantity = parseInt(quantityElement.textContent);
+        quantity = Math.max(1, quantity + increment); // Minimum quantity is 1
+        quantityElement.textContent = quantity;
+    }
+
+    // Function to add an item to the cart
+    function addToCart(name, price, id) {
+        const quantity = parseInt(document.getElementById(`quantity-${id}`).textContent);
+        const item = { name, price, quantity };
+
+        // Retrieve the cart from sessionStorage
+        let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+        // Check if the item is already in the cart
+        const existingItem = cart.find(i => i.name === name);
+        if (existingItem) {
+            existingItem.quantity += quantity; // Update quantity if item exists
+        } else {
+            cart.push(item); // Add new item if it doesn't exist
+        }
+
+        // Save the updated cart to sessionStorage
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+
+        // Redirect to the cart page
+        window.location.href = 'cart.html';
+    }
+</script>
+
+</head>
+<body>
+
+<header>Cakes Menu</header>
+
+<div class="menu-container">
+    <!-- Example Item -->
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\strawberry.jpeg" alt="strawberry">
+        <h3>Strawberry Cake</h3>
+        <p>Price: ₹499 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(1, -1)">-</button>
+            <span id="quantity-1">1</span>
+            <button onclick="updateQuantity(1, 1)">+</button>
+        </div>
+        <button class="add-to-cart" onclick="addToCart('Strawberry Cake',499, 1)">Add to Cart</button>
+    </div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\blackcurrent.jpeg" alt="blackcurrent">
+        <h3>Blackcurrent Cake</h3>
+        <p>Price:₹499 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(2, -1)">-</button>
+            <span id="quantity-2">1</span>
+            <button onclick="updateQuantity(2, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Blackcurrent Cake', 499, 2)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\mango.jpeg" alt="mango">
+        <h3>Mango Cake</h3>
+        <p>Price: ₹499 (1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(3, -1)">-</button>
+            <span id="quantity-3">1</span>
+            <button onclick="updateQuantity(3, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Mango Cake', 499, 3)">Add to Cart</button>
+    </div>
+    <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\pineapple.jpeg" alt="pineapple">
+        <h3>Pineapple Cake</h3>
+        <p>Price: ₹499(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(4, -1)">-</button>
+            <span id="quantity-4">1</span>
+            <button onclick="updateQuantity(4, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Pineapple Cake', 499, 4)">Add to Cart</button>
+    </div>
+ <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\vanilla.jpeg" alt="vanilla">
+        <h3>Vanilla Cake</h3>
+        <p>Price: ₹499(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(5, -1)">-</button>
+            <span id="quantity-5">1</span>
+            <button onclick="updateQuantity(5, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Vanilla Cake', 499, 5)">Add to Cart</button>
+</div>
+ <div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\litchi.jpeg" alt="litchee">
+        <h3> Litchi Cake</h3>
+        <p>Price: ₹449(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(6, -1)">-</button>
+            <span id="quantity-6">1</span>
+            <button onclick="updateQuantity(6, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Litchi Cake',449, 6)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\kiwi.jpeg" alt="kiwi">
+        <h3> Kiwi Cake</h3>
+        <p>Price: ₹449(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(7, -1)">-</button>
+            <span id="quantity-7">1</span>
+            <button onclick="updateQuantity(7, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Kiwi Cake',449, 7)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\blackforest.jpeg" alt="blackforest">
+        <h3> Blackforest Cake</h3>
+        <p>Price: ₹499(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(8, -1)">-</button>
+            <span id="quantity-8">1</span>
+            <button onclick="updateQuantity(8, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Blackforest Cake', 499, 8)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\whiteforest.jpeg" alt="whiteforest">
+        <h3> Whiteforest Cake</h3>
+        <p>Price: ₹549(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(9, -1)">-</button>
+            <span id="quantity-9">1</span>
+            <button onclick="updateQuantity(9, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Whiteforest Cake', 549, 9)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\chocotruffle.jpeg" alt="chocotruffle">
+        <h3> Chocotruffle Cake</h3>
+        <p>Price: ₹599(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(10, -1)">-</button>
+            <span id="quantity-10">1</span>
+            <button onclick="updateQuantity(10, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Chocotruffle Cake', 599, 10)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\oreo.jpeg" alt="oreo">
+        <h3> Oreo Cake</h3>
+        <p>Price: ₹599(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(11, -1)">-</button>
+            <span id="quantity-11">1</span>
+            <button onclick="updateQuantity(11, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Oreo Cake', 599, 11)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\caramelcake.jpg" alt="caramel">
+        <h3> Caramel Cake</h3>
+        <p>Price: ₹599(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(12, -1)">-</button>
+            <span id="quantity-12">1</span>
+            <button onclick="updateQuantity(12, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Caramel Cake', 599, 12)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\kitkat.jpeg" alt="kitkat">
+        <h3> Kitkat Cake</h3>
+        <p>Price: ₹649(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(13, -1)">-</button>
+            <span id="quantity-13">1</span>
+            <button onclick="updateQuantity(13, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Kitkat Cake', 649, 13)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\rasamilai.jpeg" alt="rasamilai">
+        <h3> Rasamilai Cake</h3>
+        <p>Price: ₹699(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(14, -1)">-</button>
+            <span id="quantity-14">1</span>
+            <button onclick="updateQuantity(14, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Rasamilai Cake', 699, 14)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\lotus.jpeg" alt="lotus">
+        <h3> Lotus Biscoff Cake</h3>
+        <p>Price: ₹799(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(15, -1)">-</button>
+            <span id="quantity-15">1</span>
+            <button onclick="updateQuantity(15, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Lotus Biscoff Cake', 799, 15)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\fr.jpeg" alt="fr">
+        <h3> Ferrero Rocher Cake</h3>
+        <p>Price: ₹899(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(16, -1)">-</button>
+            <span id="quantity-16">1</span>
+            <button onclick="updateQuantity(16, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Ferrero Rocher Cake', 899, 16)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\bb.jpeg" alt="bb">
+        <h3> Blueberry Cake</h3>
+        <p>Price: ₹499(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(17, -1)">-</button>
+            <span id="quantity-17">1</span>
+            <button onclick="updateQuantity(17, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Blue Berry Cake', 499, 17)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\rv.jpeg" alt="rv">
+        <h3> Red Velvet Cake</h3>
+        <p>Price: ₹599(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(18, -1)">-</button>
+            <span id="quantity-18">1</span>
+            <button onclick="updateQuantity(18, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Red Velvet Cake', 599, 18)">Add to Cart</button>
+</div>
+
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\hz.jpeg" alt="hz">
+        <h3> Hazelnut Cake</h3>
+        <p>Price: ₹749(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(19, -1)">-</button>
+            <span id="quantity-19">1</span>
+            <button onclick="updateQuantity(19, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Hazelnut Cake', 749, 19)">Add to Cart</button>
+</div>
+<div class="menu-item">
+        <img src="C:\Users\Sajetha\Downloads\cake\bs.jpeg" alt="hz">
+        <h3> Butterscotch Cake</h3>
+        <p>Price: ₹549(1/2 kg)</p>
+        <div class="quantity-control">
+            <button onclick="updateQuantity(20, -1)">-</button>
+            <span id="quantity-20">1</span>
+            <button onclick="updateQuantity(20, 1)">+</button>
+        </div>
+<button class="add-to-cart" onclick="addToCart('Butterscotch Cake', 549, 20)">Add to Cart</button>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #fff5e6; /* Page background color */
+        }
+
+        header {
+            background-color: #008080; /* Teal */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        .bill-container {
+            padding: 20px;
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .bill-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .bill-item:last-child {
+            border-bottom: none;
+        }
+
+        .bill-item span {
+            font-size: 1.2em;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .download-btn {
+            background-color: #008080; /* Teal */
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            margin-top: 30px;
+            border-radius: 5px;
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        .download-btn:hover {
+            background-color: #004d40; /* Darker teal on hover */
+        }
+
+        .header-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-info h2 {
+            margin: 5px 0;
+        }
+
+        .header-info p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        function loadBill() {
+    const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+    const billContainer = document.getElementById('bill-items');
+    let total = 0;
+    billContainer.innerHTML = '';  // Clear previous bill contents
+
+    cart.forEach((item) => {
+        const billItem = document.createElement('div');
+        billItem.classList.add('bill-item');
+        billItem.innerHTML = `
+            <span>${item.name}</span>
+            <span>₹${item.price} x ${item.quantity}</span>
+            <span>₹${item.price * item.quantity}</span>
+        `;
+        billContainer.appendChild(billItem);
+        total += item.price * item.quantity;
+    });
+
+    document.getElementById('total').textContent = `Total: ₹${total}`;
+}
+
+function downloadBill() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+
+    // Get current date and time
+    const currentDate = new Date();
+    const dateStr = `${currentDate.toLocaleDateString()} ${currentDate.toLocaleTimeString()}`;
+
+    // Add date and time at the top of the bill
+    doc.text(`Date: ${dateStr}`, 20, 20);
+
+    // Add title "Your Bill"
+    doc.setFontSize(16);
+    doc.text("Your Bill", 105, 30, null, null, "center");
+
+    // Table headers
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.text("Item", 20, 40);
+    doc.text("Price", 100, 40);
+    doc.text("Quantity", 140, 40);
+    doc.text("Total", 180, 40);
+
+    // Reset font for item details
+    doc.setFont("helvetica", "normal");
+
+    let yPosition = 50; // Starting vertical position for the first item
+    let total = 0;
+
+    // Add each item in the cart in a tabular format
+    const cart = JSON.parse(sessionStorage.getItem('cart')) || []; // Changed from localStorage to sessionStorage
+    cart.forEach((item) => {
+        doc.text(item.name, 20, yPosition);
+        doc.text(`Rs.${item.price.toFixed(2)}`, 100, yPosition); // Format price to 2 decimal places
+        doc.text(`${item.quantity}`, 140, yPosition);
+        doc.text(`Rs.${(item.price * item.quantity).toFixed(2)}`, 180, yPosition); // Format total price for item
+        yPosition += 10; // Move down for the next item
+        total += item.price * item.quantity;
+    });
+
+    // Draw a line to separate items from the total
+    doc.line(20, yPosition, 200, yPosition);
+
+    // Add total at the bottom of the items
+    doc.text(`Total: Rs.${total.toFixed(2)}`, 20, yPosition + 10);
+
+    // Add "Thanks for shopping" message at the bottom
+    doc.text("Thanks for shopping with us!", 20, yPosition + 20);
+
+    // Download the bill as a PDF
+    doc.save("bill.pdf");
+}
+
+
+    </script>
+</head>
+<body onload="loadBill()">
+
+<header>Your Bill</header>
+
+<div class="bill-container">
+    <div class="header-info">
+        <h2>Thank you for shopping with us!</h2>
+        <p>Please find below your bill summary.</p>
+    </div>
+
+    <div id="bill-items"></div>
+
+    <div class="total" id="total"></div>
+
+    <button class="download-btn" onclick="downloadBill()">Download Bill</button>
+</div>
+
+</body>
+</html>

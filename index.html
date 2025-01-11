@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Box</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fff5e6;
+        }
+
+        header {
+            background-color: #008080; /* Teal */
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        header img {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffe0cc;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #008080; /* Teal */
+            margin: 0 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #005f5f; /* Darker Teal */
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown .dropbtn {
+            background-color: #008080; /* Teal */
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown .dropbtn:hover {
+            background-color: #005f5f; /* Darker Teal */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #ffe0cc;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #008080; /* Teal */
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ffd1b3;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .content {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .animations img {
+            width: 300px;
+            height: 400px;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: float 3s infinite;
+            object-fit: cover;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .welcome-text {
+            font-size: 2em;
+            color: #008080; /* Teal */
+            font-weight: bold;
+            margin-top: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Styling for the Cart link to make it look like the "Place Order" button */
+        .cart-btn {
+            background-color: #008080; /* Teal */
+            color: white;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cart-btn:hover {
+            background-color: #005f5f; /* Darker Teal */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="C:\Users\Sajetha\Downloads\cake\logo.jpeg" alt="Sweet Box Logo">
+    Sweet Box
+</header>
+
+<nav>
+    <div>
+        <a href="brownies.html">Brownies</a>
+        <a href="cakes.html">Cakes</a>
+        <a href="cupcakes.html">Cupcakes</a>
+        <a href="muttamitaai.html">Muttamitaai</a>
+         <a href="assorted.html">Exotic Assorted Box</a>
+
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Place Order</button>
+        <div class="dropdown-content">
+            <a href="cakes.html">Cakes</a>
+            <a href="brownies.html">Brownies</a>
+            <a href="cupcakes.html">Cupcakes</a>
+            <a href="muttamitaai.html">Muttamitaai</a>
+             <a href="assorted.html">Exotic Assorted Box</a>
+
+       
+        </div>
+    </div>
+    <!-- Cart Button -->
+    <a href="cart.html" class="cart-btn">Cart</a>
+</nav>
+
+<div class="content">
+    <div class="animations">
+        <img src="C:\Users\Sajetha\Downloads\cake\cake.jpeg" alt="Cake">
+        <img src="C:\Users\Sajetha\Downloads\cake\brownie.jpeg" alt="Brownie">
+        <img src="https://bakewithshivesh.com/wp-content/uploads/2021/02/IMG_2671-scaled.jpg" alt="Cupcake">
+        <img src="https://shsweets.in/wp-content/uploads/2024/05/RS5D0028-scaled.jpg" alt="Muttamittai">
+    </div>
+    <p class="welcome-text">Welcome to Sweet Box! Indulge in our wide variety of cakes, brownies, cupcakes, and traditional muttamittais!</p>
+</div>
+
+</body>
+</html>
